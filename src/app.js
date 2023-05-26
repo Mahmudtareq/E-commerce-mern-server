@@ -19,16 +19,21 @@ app.use(xssClean());
 app.use(limiteRate);
 
 
+// route 
+app.use('/api/users', userRouter);
 
-app.use('/api/users',userRouter);
+// welcome message 
 app.get('/test', (req, res) => {
   res.send('Welcome to the server');
 });
 
+
+// client side error
 app.use((req, res, next) => {
   next(createError(404, 'Route not found'));
 });
 
+// server error
 app.use((err, req, res, next) => {
   return res.status(err.status || 500).json({
     success: false,
